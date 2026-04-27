@@ -1,0 +1,166 @@
+/* PDF Export Styles */
+.pdf-report {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  padding: 20px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.pdf-report .header {
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #4a90e2;
+  padding-bottom: 20px;
+}
+
+.pdf-report .header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.pdf-report .header p {
+  color: #666;
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.pdf-report .summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.pdf-report .summary-item {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.pdf-report .summary-item span {
+  font-size: 12px;
+  color: #999;
+  display: block;
+}
+
+.pdf-report .summary-item h3 {
+  font-size: 20px;
+  margin-top: 8px;
+  color: #2c3e50;
+}
+
+.pdf-report .charts-grid {
+  display: grid;
+  grid-template-columns:repeat(2,1fr);
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.pdf-report .chart-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  /*page-break-inside: avoid;
+  break-inside: avoid;*/
+}
+
+.pdf-report .chart-card h4 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-size: 12px;
+}
+
+.pdf-report .chart-card img {
+  max-width: 100%;
+  width:200px;
+  height: auto;
+  display:block;
+  margin: 0 auto;
+}
+
+.pdf-report .table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+  /*page-break-inside: avoid;*/
+}
+
+.pdf-report .table-wrapper h3 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.pdf-report table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9px;
+  word-break: break-word;
+}
+
+.pdf-report th,
+.pdf-report td {
+  border: 1px solid #ddd;
+  padding: 5px;
+  text-align: left;
+}
+
+.pdf-report th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.pdf-report .status-badge {
+  padding: 3px 6px;
+  border-radius: 20px;
+  font-size: 10px;
+  display: inline-block;
+}
+
+.pdf-report .status-badge.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.pdf-report .status-badge.inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.pdf-report .status-badge.on-leave {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.pdf-report .footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 10px;
+  color: #999;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+/* Print styles */
+@media print {
+  .pdf-report {
+    padding: 0;
+  }
+  
+  .chart-card {
+    page-break-inside: avoid;
+  }
+  
+  .table-wrapper {
+    page-break-inside: avoid;
+  }
+}
+.chart-card, .table-wrapper {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+

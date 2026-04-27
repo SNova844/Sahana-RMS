@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Food Management | Sahana Urban</title>
+
+  <!-- IMPORTANT ORDER -->
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="food.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- SAME SIDEBAR STRUCTURE AS OTHER MODULES -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <img src="../../images/logo.png" class="main-logo" alt="Sahana Urban Logo" />
+          <p class="admin-label">Admin Panel</p>
+        </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="../deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="../supplier-mng/supplier.html" class="menu-item">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supplier Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="food.html" class="menu-item active">
+          <i class="fa-solid fa-utensils"></i>
+          <span>Food Management</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-right">
+          <button>Login</button>
+          <button class="signup-btn">Sign Up</button>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <div class="page-header">
+          <div>
+            <h1>Food Management</h1>
+            <p>Home / Food Management</p>
+          </div>
+
+          <button class="add-btn" onclick="openFoodModal()">
+            <i class="fa-solid fa-plus"></i> Add Food
+          </button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon yellow">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div>
+              <p>Total Food Items</p>
+              <h2 id="totalFood">0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <p>Available Items</p>
+              <h2 id="availableFood">0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon red">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div>
+              <p>Unavailable Items</p>
+              <h2 id="unavailableFood">0</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-card">
+          <div>
+            <label>Search</label>
+            <input type="text" id="foodSearch" placeholder="Search food..." />
+          </div>
+
+          <div>
+            <label>Filter by Category</label>
+            <select id="categoryFilter">
+              <option value="All">All</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Food Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="foodTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="foodModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Food Item</h2>
+        <button onclick="closeFoodModal()">&times;</button>
+      </div>
+
+      <form id="foodForm">
+        <input type="hidden" id="foodId" />
+
+        <input type="text" id="foodName" placeholder="Food Name" required />
+
+        <select id="foodCategory" required>
+          <option value="">Select Category</option>
+          <option>Burgers</option>
+          <option>Chicken</option>
+          <option>Rice</option>
+          <option>Pizza</option>
+          <option>Drinks</option>
+          <option>Desserts</option>
+        </select>
+
+        <input type="number" id="foodPrice" placeholder="Price" required />
+
+        <textarea id="foodDescription" placeholder="Description" required></textarea>
+
+        <input type="text" id="foodImage" placeholder="Image URL" required />
+
+        <select id="foodStatus" required>
+          <option>Available</option>
+          <option>Unavailable</option>
+        </select>
+
+        <button type="submit" class="save-btn">Save Food Item</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="food.js"></script>
+</body>
+</html>

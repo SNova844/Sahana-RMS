@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout | Sahana Urban</title>
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="main-header">
+  <nav class="navbar">
+    <a href="../../index.html" class="brand">
+      <img src="../../images/logo.png" alt="Logo">
+    </a>
+
+    <div class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="cart.html">Cart</a>
+      <a href="checkout.html">Checkout</a>
+    </div>
+
+    <a href="checkout.html" class="book-btnn"></a>
+  </nav>
+</header>
+
+<!-- CHECKOUT SECTION -->
+<section class="checkout-page">
+
+  <div class="checkout-title">
+    <h1>Checkout</h1>
+    <p>Complete your order details</p>
+  </div>
+
+  <div class="checkout-layout">
+
+    <!-- LEFT -->
+    <div class="checkout-form-box">
+
+      <form id="checkoutForm">
+
+        <div class="form-group">
+          <label>Customer Name</label>
+          <input type="text" id="customerName" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" id="customerPhone" required>
+        </div>
+
+        <!-- Dynamic fields here -->
+        <div id="dynamicFields"></div>
+
+        <div class="form-group">
+          <label>Additional Note</label>
+          <textarea id="additionalNote"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Payment Method</label>
+          <select id="paymentMethod" required>
+            <option value="">Select payment method</option>
+            <option>Cash</option>
+            <option>Card</option>
+            <option>Online Payment</option>
+          </select>
+        </div>
+
+        <button type="submit" class="place-order-btn">
+          Place Order
+        </button>
+
+      </form>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="checkout-summary-box">
+
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Items</span>
+        <span id="summaryItems">0</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Sub Total</span>
+        <span id="summarySubtotal">Rs. 0</span>
+      </div>
+
+      <div class="summary-row">
+        <span id="summaryChargeLabel">Charge</span>
+        <span id="summaryCharge">Rs. 0</span>
+      </div>
+
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="summaryTotal">Rs. 0</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer class="footer">
+  <p>© 2026 Sahana Urban. All rights reserved.</p>
+</footer>
+
+<script type="module" src="checkout.js"></script>
+
+</body>
+</html>

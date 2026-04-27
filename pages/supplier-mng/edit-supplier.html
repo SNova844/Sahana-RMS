@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Supplier</title>
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="supplier.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+       <div class="logo-section">
+          <img src="../../images/logo.png" class="main-logo" />
+          <p class="admin-label">Admin Panel</p>
+      </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="../deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="supplier.html" class="menu-item active">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supplier Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <section class="content-area supplier-page">
+        <div class="supplier-page-header">
+          <div>
+            <h2>Edit Supplier</h2>
+            <p>Home / Supplier Management / Edit Supplier</p>
+          </div>
+          <a href="supplier.html" class="supplier-add-btn secondary">Back to Suppliers</a>
+        </div>
+
+        <div class="supplier-form-card">
+          <form id="editSupplierForm">
+            <div class="supplier-form-row">
+              <label for="companyName">Company Name</label>
+              <input type="text" id="companyName" placeholder="Enter company name" required />
+            </div>
+
+            <div class="supplier-form-row">
+              <label for="contactPersonName">Contact Person</label>
+              <input type="text" id="contactPersonName" placeholder="Enter contact person name" required />
+            </div>
+
+            <div class="supplier-form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Enter email address" required />
+            </div>
+
+            <div class="supplier-form-row">
+              <label for="phone">Phone</label>
+              <input type="text" id="phone" maxlength="10" placeholder="Enter phone number" required />
+            </div>
+
+            <div class="supplier-form-row">
+              <label for="itemSupplied">Items Supplied</label>
+              <input type="text" id="itemSupplied" placeholder="Rice, Vegetables, Drinks..." required />
+            </div>
+
+            <div class="supplier-form-row textarea-row">
+              <label for="address">Address</label>
+              <textarea id="address" placeholder="Enter address" required></textarea>
+            </div>
+
+            <div class="supplier-form-row textarea-row">
+              <label for="notes">Notes</label>
+              <textarea id="notes" placeholder="Additional notes about the supplier"></textarea>
+            </div>
+
+            <button type="submit" class="save-supplier-btn">Update Supplier</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/dashboard.js"></script>
+  <script type="module" src="edit-supplier.js"></script>
+</body>
+</html>

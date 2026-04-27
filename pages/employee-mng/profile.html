@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Profile - Sahana RMS</title>
+    <link rel="stylesheet" href="../employee-mng/css/style.css" />
+    <link rel="stylesheet" href="../employee-mng/css/dashboard.css" />
+    <link rel="stylesheet" href="../employee-mng/css/employee-mng.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <div class="logo-section">
+            <img class="main-logo" src="../employee-mng/css/logo.png" />
+            <p class="admin-label">Admin Panel</p>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="../../dashboard.html" class="menu-item">
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="../user-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-users"></i>
+            <span>User Management</span>
+          </a>
+          <a href="../order-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Order Management</span>
+          </a>
+          <a href="../deliver-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-truck"></i>
+            <span>Delivery Management</span>
+          </a>
+          <a href="../supplier-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-handshake"></i>
+            <span>Supplier Management</span>
+          </a>
+          <a href="../stock-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Stock Management</span>
+          </a>
+          <a href="list.html" class="menu-item active">
+            <i class="fa-solid fa-id-badge"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-toggle" id="menuToggle">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1>Sahana RMS</h1>
+          </div>
+        </header>
+
+        <section class="content-area">
+          <!-- Page Header -->
+          <div class="profile-header">
+            <div class="header-left">
+              <a href="list.html" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i> Back to Employees
+              </a>
+              <div class="employee-intro">
+                <div class="profile-avatar" id="profileAvatar">
+                  <span id="avatarInitials">E</span>
+                </div>
+                <div class="intro-text">
+                  <h2 id="employeeName">Employee Name</h2>
+                  <p id="employeeRole">Role | Department</p>
+                  <p id="employeeId">Employee ID: EMP-001</p>
+                </div>
+              </div>
+            </div>
+            <div class="header-right">
+              <button class="btn-secondary" id="editBtn">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+              <button class="btn-danger" id="deleteBtn">
+                <i class="fa-solid fa-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+
+          <!-- Profile Content -->
+          <div class="profile-content" id="profileContent">
+            <!-- Row 1: Profile Summary & Contact Info -->
+            <div class="profile-row">
+              <div class="profile-card">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-user-circle"></i> Profile Summary
+                </h3>
+                <div class="card-body">
+                  <div class="info-item">
+                    <span class="label">Employee ID</span>
+                    <span class="value" id="summaryId">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Department</span>
+                    <span class="value" id="summaryDept">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Position</span>
+                    <span class="value" id="summaryRole">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Employment Type</span>
+                    <span class="value" id="summaryType">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Joined Date</span>
+                    <span class="value" id="summaryJoined">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Status</span>
+                    <span class="value" id="summaryStatus">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Date of Birth</span>
+                    <span class="value" id="summaryDob">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-card">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-phone"></i> Contact Information
+                </h3>
+                <div class="card-body">
+                  <div class="info-item">
+                    <span class="label">Email</span>
+                    <span class="value" id="contactEmail">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Phone</span>
+                    <span class="value" id="contactPhone">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Address</span>
+                    <span class="value" id="contactAddress">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">City</span>
+                    <span class="value" id="contactCity">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Employee Details -->
+            <div class="profile-row">
+              <div class="profile-card full-width">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-id-card"></i> Employee Details
+                </h3>
+                <div class="card-body">
+                  <div class="info-item">
+                    <span class="label">Employee ID</span>
+                    <span class="value" id="detailEmployeeId">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Date of Birth</span>
+                    <span class="value" id="detailDob">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Date of Joining</span>
+                    <span class="value" id="detailJoining">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Employment Type</span>
+                    <span class="value" id="detailType">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Status</span>
+                    <span class="value" id="detailStatus">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Full Employee Data -->
+            <div class="profile-row">
+              <div class="profile-card full-width">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-list"></i> Full Employee Profile
+                </h3>
+                <div class="card-body">
+                  <div class="info-item">
+                    <span class="label">Name</span>
+                    <span class="value" id="detailName">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Email</span>
+                    <span class="value" id="detailEmail">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Phone</span>
+                    <span class="value" id="detailPhone">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Address</span>
+                    <span class="value" id="detailAddress">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Salary</span>
+                    <span class="value" id="detailSalary">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 4: Bank Information -->
+            <div class="profile-row">
+              <div class="profile-card full-width">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-money-bill"></i> Bank Information
+                </h3>
+                <div class="card-body salary-grid">
+                  <div class="salary-item">
+                    <span class="label">Bank Name</span>
+                    <span class="value" id="bankName">-</span>
+                  </div>
+                  <div class="salary-item">
+                    <span class="label">Account Number</span>
+                    <span class="value" id="bankAccountNo">-</span>
+                  </div>
+                  <div class="salary-item">
+                    <span class="label">Emergency Contact</span>
+                    <span class="value" id="emergencyContact">-</span>
+                  </div>
+                  <div class="salary-item">
+                    <span class="label">NIC Number</span>
+                    <span class="value" id="nicNumber">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Working Experience-->
+            <div class="profile-row">
+              <div class="profile-card full-width">
+                <h3 class="card-title">Working Experience</h3>
+                <div class="card-body">
+                  <div class="info-item">
+                    <span class="label">Total Experience</span>
+                    <span class="value" id="totalExperience">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">Joined Date</span>
+                    <span class="value" id="joinedDateExp">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 4: Documents -->
+            <div class="profile-row">
+              <div class="profile-card full-width">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-file"></i> Documents
+                </h3>
+                <div class="card-body">
+                  <div class="documents-grid" id="documentsGrid">
+                    <!-- Documents populated by JavaScript -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading State -->
+          <div class="loading-state" id="loadingState">
+            <div class="spinner"></div>
+            <p>Loading employee profile...</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <h3>Edit Employee</h3>
+          <button class="modal-close" id="editModalClose">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm" class="employee-form">
+            <!-- Form fields will be populated dynamically -->
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+      <div class="modal-content modal-sm">
+        <div class="modal-header">
+          <h3>Delete Employee</h3>
+        </div>
+        <div class="modal-body">
+          <div class="delete-icon">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+          <p id="deleteMessage">
+            Are you sure you want to delete this employee? This action cannot be
+            undone.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="deleteCancelBtn">Cancel</button>
+          <button class="btn-danger" id="deleteConfirmBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../../js/firebase-config.js"></script>
+    <script type="module" src="../employee-mng/js/profile.js"></script>
+    <script type="module">
+      import { ProfilePage } from "../employee-mng/js/profile.js";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const profilePage = new ProfilePage();
+        profilePage.initialize();
+      });
+    </script>
+  </body>
+</html>

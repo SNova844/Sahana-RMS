@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Supplier</title>
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="supplier.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+   <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+       <div class="logo-section">
+          <img src="../../images/logo.png" class="main-logo" />
+          <p class="admin-label">Admin Panel</p>
+      </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="../deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="supplier.html" class="menu-item active">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supplier Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <section class="content-area supplier-page">
+        <div class="supplier-page-header">
+          <div>
+            <h2>Supplier Details</h2>
+            <p>Home / Supplier Management / View Supplier</p>
+          </div>
+          <div class="details-actions-top">
+            <a href="supplier.html" class="supplier-add-btn secondary">Back</a>
+            <a href="#" id="editSupplierBtnTop" class="supplier-add-btn">Edit Supplier</a>
+          </div>
+        </div>
+
+        <div class="supplier-profile-card">
+          <div class="supplier-profile-top">
+            <div class="supplier-avatar-wrap">
+              <div class="supplier-avatar" id="supplierAvatar">S</div>
+            </div>
+
+            <div class="supplier-profile-text">
+              <h3 id="viewCompanyName">Company Name</h3>
+              <p id="viewEmail">supplier@email.com</p>
+
+              <div class="supplier-status-pill" id="statusPill">
+                <span class="status-pill-dot"></span>
+                <span id="viewStatus">Active</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="supplier-info-grid">
+
+            <div class="info-card">
+                <div class="info-icon">
+                <i class="fa-solid fa-user"></i>
+                </div>
+                <div>
+                <span class="info-label">Contact Person</span>
+                <p id="viewContactPerson">-</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                <span class="info-label">Phone</span>
+                <p id="viewPhone">-</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                <i class="fa-solid fa-box"></i>
+                </div>
+                <div>
+                <span class="info-label">Items Supplied</span>
+                <p id="viewItems">-</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div>
+                <span class="info-label">Joined</span>
+                <p id="viewJoined">-</p>
+                </div>
+            </div>
+
+            <div class="info-card full-width">
+                <div class="info-icon">
+                <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                <span class="info-label">Address</span>
+                <p id="viewAddress">-</p>
+                </div>
+            </div>
+
+            <div class="info-card full-width">
+                <div class="info-icon">
+                <i class="fa-solid fa-note-sticky"></i>
+                </div>
+                <div>
+                <span class="info-label">Notes</span>
+                <p id="viewNotes">-</p>
+                </div>
+            </div>
+
+            </div>
+
+          <div class="supplier-bottom-actions">
+            <a href="#" id="editSupplierBtnBottom" class="main-action-btn">
+              <i class="fa-solid fa-pen"></i>
+              Edit Supplier
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/dashboard.js"></script>
+  <script type="module" src="view-supplier.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit User - Sahana RMS</title>
+  <link rel="stylesheet" href="user.css" />
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="../deliver-mng/crud.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    .error-message {
+      color: #c62828;
+      font-size: 12px;
+      margin-top: 4px;
+      display: block;
+    }
+    .form-group input:invalid,
+    .form-group select:invalid {
+      border-color: #c62828;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <div class="logo-box">S</div>
+          <div>
+            <h2>Sahana Urban</h2>
+            <p>Admin Panel</p>
+          </div>
+        </div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+        <a href="user.html" class="menu-item active"><i class="fa-solid fa-users"></i><span>User Management</span></a>
+        <a href="../order-mng/order.html" class="menu-item"><i class="fa-solid fa-cart-shopping"></i><span>Order Management</span></a>
+        <a href="../deliver-mng/delivery.html" class="menu-item"><i class="fa-solid fa-truck"></i><span>Delivery Management</span></a>
+        <a href="../supplier-mng/supplier.html" class="menu-item"><i class="fa-solid fa-handshake"></i><span>Supply Management</span></a>
+        <a href="../stock-mng/stock.html" class="menu-item"><i class="fa-solid fa-boxes-stacked"></i><span>Stock Management</span></a>
+        <a href="../employee-mng/employee.html" class="menu-item"><i class="fa-solid fa-id-badge"></i><span>Employee Management</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+       <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Edit User</h2>
+            <p>Update the user information below.</p>
+          </div>
+
+          <form id="editUserForm" class="crud-form" novalidate>
+            <div class="form-section">
+              <h3>User Information</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name <span class="required">*</span></label>
+                  <input type="text" id="firstName" name="firstName" required />
+                  <span id="firstNameError" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name <span class="required">*</span></label>
+                  <input type="text" id="lastName" name="lastName" required />
+                  <span id="lastNameError" class="error-message"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="userId">User ID <span class="required">*</span></label>
+                  <input type="text" id="userId" name="userId" required readonly />
+                  <small style="color: #666; font-size: 12px;">User ID cannot be changed</small>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email <span class="required">*</span></label>
+                  <input type="email" id="email" name="email" required />
+                  <span id="emailError" class="error-message"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="role">Role <span class="required">*</span></label>
+                  <select id="role" name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Staff">Staff</option>
+                  </select>
+                  <span id="roleError" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                  <label for="status">Status <span class="required">*</span></label>
+                  <select id="status" name="status" required>
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                  <span id="statusError" class="error-message"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" onclick="window.history.back()"><i class="fa-solid fa-times"></i>Cancel</button>
+              <button type="submit" class="btn-primary"><i class="fa-solid fa-check"></i>Update User</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="edit-user.js"></script>
+</body>
+</html>

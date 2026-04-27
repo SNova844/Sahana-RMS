@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplier Report</title>
+
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="supplier.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <img src="../../images/logo.png" class="main-logo" alt="Sahana Urban Logo" />
+          <p class="admin-label">Admin Panel</p>
+        </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="../deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="supplier.html" class="menu-item active">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supplier Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <section class="content-area supplier-page report-page">
+
+        <!-- Report Header -->
+        <div class="report-header">
+          <img src="../../images/logo.png" class="report-logo" alt="Sahana Urban Logo" />
+
+          <div>
+            <h1>Supplier Analytics Report</h1>
+            <p class="report-subtitle">
+              Overview of supplier status, supply categories, recent activity, reorder requests and business insights.
+            </p>
+            <span class="report-date" id="reportDate">Generated on: -</span>
+          </div>
+        </div>
+
+        <!-- Page Title + Actions -->
+        <div class="supplier-page-header report-actions-header">
+          <div>
+            <h2>Report Overview</h2>
+            <p>Home / Supplier Management / Report</p>
+          </div>
+
+          <div class="supplier-header-actions">
+            <button onclick="window.print()" class="supplier-report-btn">
+              <i class="fa-solid fa-print"></i>
+              Print Report
+            </button>
+
+            <a href="supplier.html" class="supplier-add-btn secondary">
+              Back to Suppliers
+            </a>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="report-filter-bar">
+          <div class="filter-group">
+            <label for="periodFilter">Report Period</label>
+            <select id="periodFilter">
+              <option value="all">All Time</option>
+              <option value="month">This Month</option>
+              <option value="lastMonth">Last Month</option>
+              <option value="quarter">Last Quarter</option>
+              <option value="year">Last Year</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="statusFilter">Supplier Status</label>
+            <select id="statusFilter">
+              <option value="all">All Suppliers</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="itemFilter">Item Type</label>
+            <select id="itemFilter">
+              <option value="all">All Items</option>
+            </select>
+          </div>
+
+          <button class="filter-refresh-btn" id="refreshReportBtn">
+            <i class="fa-solid fa-rotate"></i>
+            Refresh
+          </button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="supplier-summary-grid report-summary-grid">
+          <div class="summary-card total-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <span>Total Suppliers</span>
+              <h3 id="reportTotal">0</h3>
+            </div>
+          </div>
+
+          <div class="summary-card active-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <span>Active Suppliers</span>
+              <h3 id="reportActive">0</h3>
+            </div>
+          </div>
+
+          <div class="summary-card inactive-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div>
+              <span>Inactive Suppliers</span>
+              <h3 id="reportInactive">0</h3>
+            </div>
+          </div>
+
+          <div class="summary-card rate-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <span>Active Rate</span>
+              <h3 id="reportActiveRate">0%</h3>
+            </div>
+          </div>
+
+          <div class="summary-card item-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-box"></i>
+            </div>
+            <div>
+              <span>Top Item</span>
+              <h3 id="reportTopItem">-</h3>
+            </div>
+          </div>
+
+          <div class="summary-card reorder-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-envelope-circle-check"></i>
+            </div>
+            <div>
+              <span>Reorder Requests</span>
+              <h3 id="reportReorders">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Charts -->
+        <div class="report-grid">
+          <div class="report-card chart-card">
+            <div class="report-card-header">
+              <h3>Status Distribution</h3>
+              <p>Active and inactive supplier comparison</p>
+            </div>
+            <div class="chart-box small-chart">
+              <canvas id="statusChart"></canvas>
+            </div>
+          </div>
+
+          <div class="report-card chart-card">
+            <div class="report-card-header">
+              <h3>Suppliers by Item Type</h3>
+              <p>Supplier count based on supplied items</p>
+            </div>
+            <div class="chart-box small-chart">
+              <canvas id="itemChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Growth Chart -->
+        <div class="report-card full-report-card">
+          <div class="report-card-header">
+            <h3>Monthly Supplier Growth</h3>
+            <p>Supplier registrations grouped by joined month</p>
+          </div>
+          <div class="chart-box wide-chart">
+            <canvas id="growthChart"></canvas>
+          </div>
+        </div>
+
+        <!-- New Analytics Charts -->
+        <div class="report-grid">
+          <div class="report-card chart-card">
+            <div class="report-card-header">
+              <h3>Most Purchased Suppliers</h3>
+              <p>Suppliers with the highest recent purchase/reorder activity</p>
+            </div>
+            <div class="chart-box small-chart">
+              <canvas id="purchasedSupplierChart"></canvas>
+            </div>
+          </div>
+
+          <div class="report-card chart-card">
+            <div class="report-card-header">
+              <h3>Low Stock Reorder Requests</h3>
+              <p>Supplier requests generated due to low stock items</p>
+            </div>
+            <div class="chart-box small-chart">
+              <canvas id="reorderChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Suppliers Table -->
+        <div class="report-card full-report-card">
+          <div class="report-card-header">
+            <h3>Recent Suppliers</h3>
+            <p>Latest suppliers registered in the system</p>
+          </div>
+
+          <div class="supplier-table-wrapper report-table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Contact Person</th>
+                  <th>Items Supplied</th>
+                  <th>Joined</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentSupplierTable">
+                <tr>
+                  <td colspan="5" class="empty-row">Loading report data...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Insights -->
+        <div class="report-card full-report-card">
+          <div class="report-card-header">
+            <h3>Key Insights</h3>
+            <p>Automatically generated supplier management insights</p>
+          </div>
+
+          <div class="insight-grid" id="insightList">
+            <div class="insight-card">Loading insights...</div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/dashboard.js"></script>
+  <script type="module" src="supplier-report.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Delivery - Sahana RMS</title>
+  <link rel="stylesheet" href="delivery.css" />
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="crud.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <div class="logo-box">S</div>
+          <div>
+            <h2>Sahana Urban</h2>
+            <p>Admin Panel</p>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="delivery.html" class="menu-item active">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="../supplier-mng/supplier.html" class="menu-item">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supply Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Header with Logo, Breadcrumb, and Back Button -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <!-- Content Area with Details -->
+      <section class="content-area">
+        <div class="view-container">
+          <div class="view-header">
+            <h2>Delivery Details</h2>
+            <div class="view-actions">
+              <a href="edit-delivery.html" class="btn-icon-text">
+                <i class="fa-solid fa-edit"></i>
+                Edit
+              </a>
+              <button class="btn-icon-text btn-danger" id="deleteBtn">
+                <i class="fa-solid fa-trash"></i>
+                Delete
+              </button>
+            </div>
+          </div>
+
+          <div class="details-grid">
+            <div class="details-section">
+              <h3>Basic Information</h3>
+              
+              <div class="detail-row">
+                <div class="detail-label">Order ID</div>
+                <div class="detail-value" id="orderID">-</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Customer Name</div>
+                <div class="detail-value" id="customerName">-</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Phone Number</div>
+                <div class="detail-value" id="phone">-</div>
+              </div>
+            </div>
+
+            <div class="details-section">
+              <h3>Delivery Information</h3>
+              
+              <div class="detail-row">
+                <div class="detail-label">Rider Name</div>
+                <div class="detail-value" id="riderName">-</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Delivery Address</div>
+                <div class="detail-value" id="address">-</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Delivery Date</div>
+                <div class="detail-value" id="date">-</div>
+              </div>
+            </div>
+
+            <div class="details-section">
+              <h3>Status Information</h3>
+              
+              <div class="detail-row">
+                <div class="detail-label">Current Status</div>
+                <div class="detail-value">
+                  <span id="status" class="status">Pending</span>
+                </div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Created Date</div>
+                <div class="detail-value" id="createdDate">-</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Last Updated</div>
+                <div class="detail-value" id="updatedDate">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteConfirmModal" class="modal">
+    <div class="modal-content modal-small">
+      <div class="modal-header">
+        <h2>Confirm Delete</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteMessage">Are you sure you want to delete this delivery?</p>
+        <p class="delete-warning"><i class="fa-solid fa-exclamation-triangle"></i> This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn-delete" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="crud.js"></script>
+</body>
+</html>

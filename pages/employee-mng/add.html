@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Employee - Sahana RMS</title>
+    <link rel="stylesheet" href="../employee-mng/css/style.css" />
+    <link rel="stylesheet" href="../employee-mng/css/dashboard.css" />
+    <link rel="stylesheet" href="../employee-mng/css/employee-mng.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <div class="logo-section">
+            <img class="main-logo" src="../employee-mng/css/logo.png" />
+            <p class="admin-label">Admin Panel</p>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="../../dashboard.html" class="menu-item">
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="../user-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-users"></i>
+            <span>User Management</span>
+          </a>
+          <a href="../order-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Order Management</span>
+          </a>
+          <a href="../deliver-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-truck"></i>
+            <span>Delivery Management</span>
+          </a>
+          <a href="../supplier-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-handshake"></i>
+            <span>Supplier Management</span>
+          </a>
+          <a href="../stock-mng/list.html" class="menu-item">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Stock Management</span>
+          </a>
+          <a href="list.html" class="menu-item active">
+            <i class="fa-solid fa-id-badge"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="#" class="menu-item">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-toggle" id="menuToggle">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1>Sahana RMS</h1>
+          </div>
+        </header>
+
+        <section class="content-area">
+          <!-- Page Header -->
+          <div class="page-header emp-page-header">
+            <div class="header-left">
+              <h2 class="page-title">Create New Employee</h2>
+              <div class="breadcrumb">
+                <a href="../../dashboard.html">Home</a>
+                <span>/</span>
+                <a href="list.html">Employee Management</a>
+                <span>/</span>
+                <span>Add Employee</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Employee Form -->
+          <form id="employeeForm" class="employee-form">
+            <!-- Section 1: Profile Photo -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fa-solid fa-image"></i> Profile Photo
+              </h3>
+              <div class="section-content">
+                <div class="photo-upload-section">
+                  <input
+                    type="file"
+                    id="profilePhoto"
+                    class="file-input"
+                    accept="image/*"
+                  />
+                  <div class="upload-box" id="uploadBox">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Click to upload or drag & drop</p>
+                    <span>PNG, JPG, GIF up to 5MB</span>
+                  </div>
+                  <div
+                    class="photo-preview"
+                    id="photoPreview"
+                    style="display: none"
+                  >
+                    <img id="previewImage" src="" alt="Profile preview" />
+                    <button
+                      type="button"
+                      class="btn-remove-photo"
+                      id="removePhoto"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Personal Information -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fa-solid fa-user"></i> Personal Information
+              </h3>
+              <div class="section-content">
+                <div class="form-row">
+                  <div class="form-group full">
+                    <label for="fullName"
+                      >Full Name <span class="required">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="fullName"
+                      class="form-input"
+                      placeholder="Enter full name"
+                      required
+                    />
+                    <span class="error-message" id="fullNameError"></span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group full">
+                    <label for="emailAddress"
+                      >Email Address <span class="required">*</span></label
+                    >
+                    <input
+                      type="email"
+                      id="emailAddress"
+                      class="form-input"
+                      placeholder="Enter email address"
+                      required
+                    />
+                    <span class="error-message" id="emailError"></span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="phoneNumber"
+                      >Phone Number <span class="required">*</span></label
+                    >
+                    <input
+                      type="tel"
+                      id="phoneNumber"
+                      class="form-input"
+                      placeholder="Enter phone number"
+                      required
+                    />
+                    <span class="error-message" id="phoneError"></span>
+                  </div>
+                  <div class="form-group half">
+                    <label for="dateOfBirth"
+                      >Date of Birth <span class="required">*</span></label
+                    >
+                    <input
+                      type="date"
+                      id="dateOfBirth"
+                      class="form-input"
+                      required
+                    />
+                    <span class="error-message" id="dobError"></span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group full">
+                    <label for="address"
+                      >Address <span class="required">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="address"
+                      class="form-input"
+                      placeholder="Enter full address"
+                      required
+                    />
+                    <span class="error-message" id="addressError"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                        <!-- Section 3: Employee Details -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fa-solid fa-briefcase"></i> Employee Details
+              </h3>
+              <div class="section-content">
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="employeeId"
+                      >Employee ID <span class="required">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="employeeId"
+                      class="form-input"
+                      placeholder="Auto-generated"
+                      readonly
+                    />
+                  </div>
+                  <div class="form-group half">
+                    <label for="dateOfJoining"
+                      >Date of Joining <span class="required">*</span></label
+                    >
+                    <input
+                      type="date"
+                      id="dateOfJoining"
+                      class="form-input"
+                      required
+                    />
+                    <span class="error-message" id="joiningError"></span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="role"
+                      >Role <span class="required">*</span></label
+                    >
+                    <select id="role" class="form-input" required>
+                      <option value="">Select role</option>
+                      <option value="manager">Manager</option>
+                      <option value="supervisor">Supervisor</option>
+                      <option value="chef">Chef</option>
+                      <option value="cook">Cook</option>
+                      <option value="waiter">Waiter</option>
+                      <option value="cashier">Cashier</option>
+                      <option value="delivery">Delivery Person</option>
+                      <option value="staff">General Staff</option>
+                    </select>
+                    <span class="error-message" id="roleError"></span>
+                  </div>
+                  <div class="form-group half">
+                    <label for="department"
+                      >Department <span class="required">*</span></label
+                    >
+                    <select id="department" class="form-input" required>
+                      <option value="">Select department</option>
+                      <option value="kitchen">Kitchen</option>
+                      <option value="service">Service</option>
+                      <option value="delivery">Delivery</option>
+                      <option value="accounts">Accounts</option>
+                      <option value="hr">HR</option>
+                      <option value="admin">Administration</option>
+                    </select>
+                    <span class="error-message" id="deptError"></span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="employmentType"
+                      >Employment Type <span class="required">*</span></label
+                    >
+                    <select id="employmentType" class="form-input" required>
+                      <option value="">Select type</option>
+                      <option value="full-time">Full-time</option>
+                      <option value="part-time">Part-time</option>
+                      <option value="contract">Contract</option>
+                      <option value="temporary">Temporary</option>
+                      <option value="intern">Intern</option>
+                    </select>
+                    <span class="error-message" id="typeError"></span>
+                  </div>
+                  <div class="form-group half">
+                    <label for="salary"
+                      >Monthly Salary (LKR)
+                      <span class="required">*</span></label
+                    >
+                    <input
+                      type="number"
+                      id="salary"
+                      class="form-input"
+                      placeholder="0.00"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                    <span class="error-message" id="salaryError"></span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="bankName">Bank Name</label>
+                    <select id="bankName" class="form-input">
+                      <option value="">Select Bank</option>
+                      <option value="Bank of Ceylon">Bank of Ceylon (BOC)</option>
+                      <option value="Commercial Bank">Commercial Bank</option>
+                      <option value="People's Bank">People's Bank</option>
+                      <option value="Sampath Bank">Sampath Bank</option>
+                      <option value="Hatton National Bank">
+                        Hatton National Bank (HNB)
+                      </option>
+                      <option value="NSB">National Savings Bank (NSB)</option>
+                      <option value="DFCC Bank">DFCC Bank</option>
+                      <option value="Nations Trust Bank">
+                        Nations Trust Bank
+                      </option>
+                      <option value="Seylan Bank">Seylan Bank</option>
+                      <option value="Union Bank">Union Bank</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group half">
+                    <label for="bankAccountNo">Bank Account Number</label>
+                    <input
+                      type="text"
+                      id="bankAccountNo"
+                      class="form-input"
+                      placeholder="Enter account number"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="nicNumber"
+                      >NIC Number <span class="required">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="nicNumber"
+                      class="form-input"
+                      placeholder="Enter NIC (e.g., 901234567V or 199012345678)"
+                      required
+                    />
+                    <span class="error-message" id="nicError"></span>
+                  </div>
+                  <div class="form-group half">
+                    <label for="emergencyContactName"
+                      >Emergency Contact Name</label
+                    >
+                    <input
+                      type="text"
+                      id="emergencyContactName"
+                      class="form-input"
+                      placeholder="Enter emergency contact name"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label for="emergencyContactPhone">Emergency Contact Phone</label>
+                    <input type="tel" id="emergencyContactPhone" class="form-input" placeholder="Enter emergency phone number">
+                    <span class="error-message" id="emergencyPhoneError"></span>
+                  </div>
+                </div>
+              </div>  <!-- Close section-content -->
+            </div>  <!-- Close Employee Details section -->
+
+            <!-- Section 4: Status -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fa-solid fa-signal"></i> Employment Status
+              </h3>
+              <div class="section-content">
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="status" value="active" checked />
+                    <span>Active</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="status" value="inactive" />
+                    <span>Inactive</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="status" value="on-leave" />
+                    <span>On Leave</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 5: Documents Upload -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fa-solid fa-file-upload"></i> Documents
+              </h3>
+              <div class="section-content">
+                <div class="documents-upload">
+                  <input
+                    type="file"
+                    id="documentsInput"
+                    class="file-input"
+                    multiple
+                    accept=".pdf,.doc,.docx,.jpg,.png"
+                  />
+                  <div class="drop-zone" id="dropZone">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Drag & drop files or browse (CV, ID, Certificates)</p>
+                    <span>Supported: PDF, DOC, JPG, PNG (max 10MB each)</span>
+                  </div>
+                  <div class="documents-list" id="documentsList"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Buttons -->
+            <div class="form-buttons">
+              <button type="button" class="btn-secondary" id="cancelBtn">
+                Cancel
+              </button>
+              <button type="submit" class="btn-primary" id="submitBtn">
+                Save Employee
+              </button>
+            </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+      <div class="modal-content modal-sm">
+        <div class="modal-header">
+          <h3>Success</h3>
+        </div>
+        <div class="modal-body">
+          <div class="success-icon">
+            <i class="fa-solid fa-check-circle"></i>
+          </div>
+          <p id="successMessage">Employee added successfully!</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-primary" id="successOkBtn">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+      <div class="modal-content modal-sm">
+        <div class="modal-header">
+          <h3>Error</h3>
+          <button class="modal-close" id="errorModalClose">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="errorMessage">An error occurred. Please try again.</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../../js/firebase-config.js"></script>
+    <script type="module" src="../employee-mng/js/employee-mng.js"></script>
+    <script type="module" src="../employee-mng/js/add.js"></script>
+  </body>
+</html>

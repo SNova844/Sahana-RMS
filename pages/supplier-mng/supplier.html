@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplier Management</title>
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="supplier.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+       <div class="logo-section">
+          <img src="../../images/logo.png" class="main-logo" />
+          <p class="admin-label">Admin Panel</p>
+      </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="../deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="supplier.html" class="menu-item active">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supplier Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <section class="content-area supplier-page">
+        <div class="supplier-page-header">
+          <div>
+            <h2>Supplier Management</h2>
+            <p>Home / Supplier Management</p>
+          </div>
+          <div class="supplier-header-actions">
+
+            <button id="exportReportBtn" class="supplier-report-btn">
+              <i class="fa-solid fa-file-arrow-down"></i>
+              Export Report
+            </button>
+
+            <a href="reorder-request.html" class="reorder-btn">
+              <i class="fa-solid fa-envelope"></i>
+                Reorder Requests
+            </a>
+
+            <a href="add-supplier.html" class="supplier-add-btn">
+              <i class="fa-solid fa-plus"></i>
+              Add Supplier
+            </a>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="supplier-summary-grid">
+          <div class="summary-card total-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <span>Total Suppliers</span>
+              <h3 id="totalSuppliersCount">0</h3>
+            </div>
+          </div>
+
+          <div class="summary-card active-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <span>Active Suppliers</span>
+              <h3 id="activeSuppliersCount">0</h3>
+            </div>
+          </div>
+
+          <div class="summary-card inactive-card">
+            <div class="summary-icon">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div>
+              <span>Inactive Suppliers</span>
+              <h3 id="inactiveSuppliersCount">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search / Filter Controls -->
+        <div class="supplier-controls-card">
+          <div class="supplier-controls-grid">
+            <div class="supplier-control-group search-group">
+              <label for="supplierSearchInput">Search</label>
+              <div class="control-input-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input
+                  type="text"
+                  id="supplierSearchInput"
+                  placeholder="Search by company, contact person, email, phone, item, address or status"
+                />
+              </div>
+            </div>
+
+            <div class="supplier-control-group">
+              <label for="statusFilter">Filter by Status</label>
+              <select id="statusFilter">
+                <option value="All">All</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+
+            <div class="supplier-control-group">
+              <label for="sortFilter">Sort By</label>
+              <select id="sortFilter">
+                <option value="Newest">Newest Joined</option>
+                <option value="Oldest">Oldest Joined</option>
+                <option value="AZ">Company Name A-Z</option>
+              </select>
+            </div>
+
+            <div class="supplier-control-group clear-btn-group">
+              <button id="clearFiltersBtn" class="clear-filter-btn">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="supplier-table-card">
+          <div class="supplier-table-top">
+            <div class="entries-box">
+              <span>Show</span>
+              <select id="entriesPerPage">
+                <option>8</option>
+                <option>10</option>
+                <option>15</option>
+              </select>
+              <span>entries</span>
+            </div>
+          </div>
+
+          <div class="supplier-table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Company Name</th>
+                  <th>Contact Person</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Joined</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="supplierTableBody">
+                <tr>
+                  <td colspan="8" class="empty-row">No suppliers added yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="supplierToast" class="supplier-toast"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/dashboard.js"></script>
+  <script type="module" src="supplier.js"></script>
+</body>
+</html>

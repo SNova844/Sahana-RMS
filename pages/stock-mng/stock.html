@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahana RMS | Stock Management</title>
+  <link rel="stylesheet" href="stock.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <div class="stock-layout">
+    <!-- Main stock management layout: sidebar + content area -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Left sidebar navigation for stock module -->
+    <aside class="sidebar" id="stockSidebar">
+      <div class="logo-section">
+        <div class="logo-box">S</div>
+        <div>
+          <h2>Sahana RMS</h2>
+          <p>Stock Management</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu" id="sidebarMenu">
+        <a class="menu-item link-item" href="../../dashboard.html">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+        <button class="menu-item active" type="button" data-view="overviewView">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Stock Overview</span>
+        </button>
+        <button class="menu-item" type="button" data-view="itemsView">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Items</span>
+        </button>
+        <button class="menu-item" type="button" data-view="alertsView">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>Low Stock</span>
+        </button>
+        <button class="menu-item" type="button" data-view="supplierSummaryView">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Supplier Summary</span>
+        </button>
+        <button class="menu-item" type="button" data-view="supplierLinksView">
+          <i class="fa-solid fa-link"></i>
+          <span>Supplier Links</span>
+        </button>
+        <button class="menu-item" type="button" data-view="purchasesView">
+          <i class="fa-solid fa-cart-flatbed"></i>
+          <span>Purchases</span>
+        </button>
+        <button class="menu-item" type="button" data-view="transactionsView">
+          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          <span>Transactions</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main-area">
+      <!-- Top header: breadcrumbs, page title, and global actions -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div>
+            <div class="breadcrumbs" id="pageBreadcrumbs">Home <span>/</span> Management <span>/</span> Stock Overview</div>
+            <h1 id="pageTitle">Stock Overview</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="secondary-btn" id="exportBtn" type="button"><i class="fa-solid fa-file-export"></i> Export Data</button>
+          <button class="primary-btn" id="openItemModalBtn" type="button"><i class="fa-solid fa-plus"></i> Add Stock Item</button>
+        </div>
+      </header>
+
+      <div class="page-body">
+        <!-- View 1: stock overview dashboard -->
+        <section class="content-view active" id="overviewView">
+          <section class="stats-grid overview-stats">
+            <article class="card stat-card">
+              <div class="stat-icon primary"><i class="fa-solid fa-layer-group"></i></div>
+              <div><p>Total Items</p><h2 id="summaryTotalItems">0</h2></div>
+            </article>
+            <article class="card stat-card clickable" id="openLowStockBtn">
+              <div class="stat-icon warn"><i class="fa-solid fa-bell"></i></div>
+              <div><p>Low Stock Items</p><h2 id="summaryLowItems">0</h2></div>
+            </article>
+            <article class="card stat-card">
+              <div class="stat-icon dark"><i class="fa-solid fa-ban"></i></div>
+              <div><p>Out of Stock</p><h2 id="summaryOutItems">0</h2></div>
+            </article>
+            <article class="card stat-card clickable" id="openTransactionModalBtn">
+              <div class="stat-icon info"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+              <div><p>Transactions</p><h2 id="summaryTransactions">0</h2></div>
+            </article>
+            <article class="card stat-card clickable" id="openPurchaseModalBtn">
+              <div class="stat-icon success"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+              <div><p>Estimated Stock Value</p><h2 id="summaryValue">LKR 0</h2></div>
+            </article>
+          </section>
+
+          <article class="card quick-actions-card overview-actions-card">
+            <div class="card-header">
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="card-body action-grid action-grid-row">
+              <button class="action-tile" type="button" id="openItemModalBtn2">
+                <span class="tile-icon primary"><i class="fa-solid fa-plus"></i></span>
+                <strong>Add Stock Item</strong>
+              </button>
+              <button class="action-tile" type="button" id="openPurchaseModalBtn2">
+                <span class="tile-icon info"><i class="fa-solid fa-cart-plus"></i></span>
+                <strong>Record Purchase</strong>
+              </button>
+              <button class="action-tile" type="button" id="openTransactionModalBtn2">
+                <span class="tile-icon dark"><i class="fa-solid fa-right-left"></i></span>
+                <strong>Record Transaction</strong>
+              </button>
+            </div>
+          </article>
+
+          <article class="card" id="stock-list-preview">
+            <div class="card-header toolbar-header items-toolbar with-inline-fullview">
+              <div>
+                <h3>Stock Item List</h3>
+                <!-- <p class="card-subtext">Live stock table with practical filters for restaurant operations.</p> -->
+              </div>
+              <div class="toolbar-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="stockSearch" placeholder="Search item, category, source, or unit" />
+                </div>
+                <select class="select compact-select" id="typeFilter">
+                  <option value="all">All item types</option>
+                  <option value="ingredient">Raw materials</option>
+                  <option value="finished">Finished products</option>
+                </select>
+                <select class="select compact-select" id="categoryFilter">
+                  <option value="all">All categories</option>
+                </select>
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearItemFilters">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="quick-filters with-side-action">
+                <div class="pill-row">
+                  <button class="pill active" data-filter="all">All</button>
+                  <button class="pill" data-filter="low">Low Stock</button>
+                  <button class="pill" data-filter="out">Out of Stock</button>
+                  <button class="pill" data-filter="bulk">Bulk Items</button>
+                  <button class="pill" data-filter="counted">Counted Items</button>
+                </div>
+                <div class="quick-filter-actions">
+                  <button class="ghost-btn compact-view-btn" type="button" id="goToItemsBtn">Open Full View</button>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="table table-items">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Category</th>
+                      <th>Tracking</th>
+                      <th>Type</th>
+                      <th>Qty on Hand</th>
+                      <th>Reorder Level</th>
+                      <th>Status</th>
+                      <th>Last Updated</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overviewItemsTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="overviewItemsPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="overviewItemsMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="overviewItemsPrevBtn">Previous</button>
+                  <span class="page-indicator" id="overviewItemsPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="overviewItemsNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" id="overviewLowStockCard">
+            <div class="card-header split-header">
+              <h3>Low Stock Alerts</h3>
+              <button class="ghost-btn compact-view-btn" type="button" id="goToAlertsBtn">Open Full View</button>
+            </div>
+            <div class="card-body no-pad">
+              <div class="table-wrap compact-table">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Current</th>
+                      <th>Reorder Level</th>
+                      <th>Suggested Order</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lowStockTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="overviewAlertsPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="overviewAlertsMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="overviewAlertsPrevBtn">Previous</button>
+                  <span class="page-indicator" id="overviewAlertsPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="overviewAlertsNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- View 2: full stock item table -->
+        <section class="content-view" id="itemsView">
+          <section class="card" id="stock-list">
+            <div class="card-header toolbar-header items-toolbar">
+              <div>
+                <h3>Stock Item List</h3>
+                <!-- <p class="card-subtext">Live stock table with practical filters for restaurant operations.</p> -->
+              </div>
+              <div class="toolbar-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="stockSearchMirror" placeholder="Search item, category, source, or unit" />
+                </div>
+                <select class="select compact-select" id="typeFilterMirror">
+                  <option value="all">All item types</option>
+                  <option value="ingredient">Raw materials</option>
+                  <option value="finished">Finished products</option>
+                </select>
+                <select class="select compact-select" id="categoryFilterMirror">
+                  <option value="all">All categories</option>
+                </select>
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearItemFiltersMirror">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="quick-filters with-side-action">
+                <div class="pill-row">
+                  <button class="pill active mirror-pill" data-filter="all">All</button>
+                  <button class="pill mirror-pill" data-filter="low">Low Stock</button>
+                  <button class="pill mirror-pill" data-filter="out">Out of Stock</button>
+                  <button class="pill mirror-pill" data-filter="bulk">Bulk Items</button>
+                  <button class="pill mirror-pill" data-filter="counted">Counted Items</button>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="table table-items">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Category</th>
+                      <th>Tracking</th>
+                      <th>Type</th>
+                      <th>Qty on Hand</th>
+                      <th>Reorder Level</th>
+                      <th>Status</th>
+                      <th>Last Updated</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="itemsTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="itemsPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="25">25</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="itemsMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="itemsPrevBtn">Previous</button>
+                  <span class="page-indicator" id="itemsPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="itemsNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- View 3: low stock alert table -->
+        <section class="content-view" id="alertsView">
+          <article class="card section-table-card">
+            <div class="card-header toolbar-header section-toolbar low-stock-toolbar">
+              <div>
+                <h3>Low Stock Alerts</h3>
+              </div>
+              <div class="toolbar-actions section-toolbar-actions low-stock-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="alertsSearch" placeholder="Search item, category, source, or unit" />
+                </div>
+                <select class="select compact-select" id="alertsStatusFilter">
+                  <option value="all">All alerts</option>
+                  <option value="low">Low stock only</option>
+                  <option value="out">Out of stock only</option>
+                </select>
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearAlertsFilters">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="table-wrap compact-table">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Current</th>
+                      <th>Reorder Level</th>
+                      <th>Suggested Order</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lowStockTableBodyDuplicate"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="alertsPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="alertsMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="alertsPrevBtn">Previous</button>
+                  <span class="page-indicator" id="alertsPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="alertsNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+
+        <!-- View 4: supplier finance and purchase summary -->
+        <section class="content-view" id="supplierSummaryView">
+          <section class="stats-grid supplier-summary-stats">
+            <article class="card stat-card">
+              <div class="stat-icon primary"><i class="fa-solid fa-handshake"></i></div>
+              <div><p>Suppliers Used</p><h2 id="supplierSummaryTotalSuppliers">0</h2></div>
+            </article>
+            <article class="card stat-card">
+              <div class="stat-icon info"><i class="fa-solid fa-file-invoice"></i></div>
+              <div><p>Purchase Bills</p><h2 id="supplierSummaryTotalPurchases">0</h2></div>
+            </article>
+            <article class="card stat-card">
+              <div class="stat-icon dark"><i class="fa-solid fa-sack-dollar"></i></div>
+              <div><p>Total Purchased</p><h2 id="supplierSummaryTotalValue">LKR 0</h2></div>
+            </article>
+            <article class="card stat-card">
+              <div class="stat-icon success"><i class="fa-solid fa-circle-check"></i></div>
+              <div><p>Total Paid</p><h2 id="supplierSummaryPaidValue">LKR 0</h2></div>
+            </article>
+            <article class="card stat-card">
+              <div class="stat-icon warn"><i class="fa-solid fa-clock"></i></div>
+              <div><p>Pending Payable</p><h2 id="supplierSummaryPendingValue">LKR 0</h2></div>
+            </article>
+            <article class="card stat-card">
+              <div class="stat-icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div><p>Overdue Bills</p><h2 id="supplierSummaryOverdueCount">0</h2></div>
+            </article>
+          </section>
+
+          <article class="card section-table-card supplier-summary-card">
+            <div class="card-header toolbar-header section-toolbar supplier-summary-toolbar">
+              <div class="section-title-action">
+                <h3>Supplier Purchase Summary</h3>
+                <button class="secondary-btn header-add-btn" type="button" id="openPurchaseModalBtnSupplierSummary"><i class="fa-solid fa-plus"></i> Record Purchase</button>
+              </div>
+              <div class="toolbar-actions section-toolbar-actions supplier-summary-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="supplierSummarySearch" placeholder="Search supplier, item, contact, invoice" />
+                </div>
+                <input class="input compact-date" type="date" id="supplierSummaryFromDate" title="From date" />
+                <input class="input compact-date" type="date" id="supplierSummaryToDate" title="To date" />
+                <select class="select compact-select" id="supplierSummaryPaymentFilter">
+                  <option value="all">All payment status</option>
+                  <option value="unpaid">With pending payable</option>
+                  <option value="paidOnly">Fully paid suppliers</option>
+                  <option value="Partially Paid">Has partial bills</option>
+                  <option value="Pending">Has pending bills</option>
+                  <option value="overdue">Overdue payable</option>
+                </select>
+                <select class="select compact-select" id="supplierSummarySourceFilter">
+                  <option value="all">All suppliers</option>
+                  <option value="registered">Registered suppliers</option>
+                  <option value="purchaseOnly">Purchase-only suppliers</option>
+                </select>
+                <select class="select compact-select" id="supplierSummarySort">
+                  <option value="pendingDesc">Highest pending first</option>
+                  <option value="spendDesc">Highest purchase value</option>
+                  <option value="recentDesc">Latest purchase first</option>
+                  <option value="purchaseDesc">Most purchases</option>
+                  <option value="nameAsc">Supplier A-Z</option>
+                </select>
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearSupplierSummaryFilters">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="supplier-system-note supplier-summary-note">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>This owner view is calculated from stock purchase bills and linked with Supplier Management contacts when the supplier name matches. It shows spending, paid amount, pending payable, overdue bills, supplied items, and last purchase date.</span>
+              </div>
+              <div class="table-wrap compact-table">
+                <table class="table supplier-summary-table">
+                  <thead>
+                    <tr>
+                      <th>Supplier</th>
+                      <th>Purchases</th>
+                      <th>Supplied Items</th>
+                      <th>Total Purchased</th>
+                      <th>Paid</th>
+                      <th>Pending</th>
+                      <th>Overdue</th>
+                      <th>Last Purchase</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="supplierSummaryTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="supplierSummaryPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="supplierSummaryMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="supplierSummaryPrevBtn">Previous</button>
+                  <span class="page-indicator" id="supplierSummaryPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="supplierSummaryNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- View 5: supplier source links table -->
+        <section class="content-view" id="supplierLinksView">
+          <article class="card section-table-card">
+            <div class="card-header toolbar-header section-toolbar supplier-links-toolbar">
+              <div class="section-title-action">
+                <h3>Supplier Source Links</h3>
+                <button class="secondary-btn header-add-btn" type="button" id="openPurchaseModalBtnSupplier"><i class="fa-solid fa-plus"></i> Record Purchase</button>
+              </div>
+              <div class="toolbar-actions section-toolbar-actions supplier-links-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="supplierLinkSearch" placeholder="Search item, supplier, category, or contact" />
+                </div>
+                <select class="select compact-select" id="supplierLinkStatusFilter">
+                  <option value="all">All source links</option>
+                  <option value="linked">Linked items</option>
+                  <option value="unlinked">Unlinked items</option>
+                  <option value="registered">Registered suppliers</option>
+                  <option value="purchase">Purchase history links</option>
+                </select>
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearSupplierLinkFilters">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="supplier-system-note">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Stock items are no longer locked to one supplier. Every purchase creates a supplier-item source link, while Supplier Management supplies contact and status details when the same supplier exists there.</span>
+              </div>
+              <div class="table-wrap compact-table">
+                <table class="table supplier-links-table">
+                  <thead>
+                    <tr>
+                      <th>Stock Item</th>
+                      <th>Category</th>
+                      <th>Linked Suppliers</th>
+                      <th>Latest Purchase Source</th>
+                      <th>Last Price</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="supplierLinksTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="supplierLinksPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="supplierLinksMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="supplierLinksPrevBtn">Previous</button>
+                  <span class="page-indicator" id="supplierLinksPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="supplierLinksNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- View 6: purchase history table -->
+        <section class="content-view" id="purchasesView">
+          <article class="card section-table-card">
+            <div class="card-header toolbar-header section-toolbar purchase-toolbar">
+              <div class="section-title-action">
+                <h3>Purchase History</h3>
+                <button class="secondary-btn header-add-btn" type="button" id="openPurchaseModalBtn4"><i class="fa-solid fa-plus"></i> Add Purchase</button>
+              </div>
+              <div class="toolbar-actions section-toolbar-actions purchase-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="purchaseSearch" placeholder="Search purchase ID, item, supplier, status, or employee" />
+                </div>
+                <select class="select compact-select" id="purchaseStatusFilter">
+                  <option value="all">All payment status</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Partially Paid">Partially Paid</option>
+                  <option value="Pending">Pending</option>
+                  <option value="overdue">Overdue</option>
+                </select>
+                <input class="input compact-date" type="date" id="purchaseDateFilter" title="Filter by purchase date" />
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearPurchaseFilters">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="table-wrap compact-table">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Purchase ID</th>
+                      <th>Item</th>
+                      <th>Supplier</th>
+                      <th>Quantity</th>
+                      <th>Unit Price</th>
+                      <th>Total</th>
+                      <th>Paid / Pending</th>
+                      <th>Status</th>
+                      <th>Due Date</th>
+                      <th>Purchased By</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="purchaseTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="purchasesPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="purchasesMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="purchasesPrevBtn">Previous</button>
+                  <span class="page-indicator" id="purchasesPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="purchasesNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- View 7: stock transaction history table -->
+        <section class="content-view" id="transactionsView">
+          <article class="card section-table-card">
+            <div class="card-header toolbar-header section-toolbar transaction-toolbar">
+              <div class="section-title-action">
+                <h3>Transaction History</h3>
+                <button class="dark-btn header-add-btn" type="button" id="openTransactionModalBtn4"><i class="fa-solid fa-plus"></i> Add Transaction</button>
+              </div>
+              <div class="toolbar-actions section-toolbar-actions transaction-actions">
+                <div class="input-with-icon search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="input" id="transactionSearch" placeholder="Search transaction ID, item, reason, or employee" />
+                </div>
+                <select class="select compact-select" id="transactionTypeFilter">
+                  <option value="all">All transaction types</option>
+                  <option value="PURCHASE">Purchases</option>
+                  <option value="IN">Stock In</option>
+                  <option value="OUT">Stock Out</option>
+                  <option value="ADJUSTMENT">Adjustments</option>
+                </select>
+                <input class="input compact-date" type="date" id="transactionDateFilter" title="Filter by transaction date" />
+                <button class="ghost-btn small-btn clear-filter-btn" type="button" id="clearTransactionFilters">Clear</button>
+              </div>
+            </div>
+            <div class="card-body no-pad">
+              <div class="table-wrap compact-table">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Transaction ID</th>
+                      <th>Item</th>
+                      <th>Type</th>
+                      <th>Change</th>
+                      <th>Balance</th>
+                      <th>Reason</th>
+                      <th>Recorded By</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="transactionTableBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="footer-left">
+                  <label>Show
+                    <select class="select mini-select" id="transactionsPageSize">
+                      <option value="6" selected>6</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    entries
+                  </label>
+                  <span id="transactionsMeta" class="table-meta"></span>
+                </div>
+                <div class="pagination-controls">
+                  <button class="ghost-btn small-btn" type="button" id="transactionsPrevBtn">Previous</button>
+                  <span class="page-indicator" id="transactionsPageIndicator">1</span>
+                  <button class="ghost-btn small-btn" type="button" id="transactionsNextBtn">Next</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+  <!-- Shared dark backdrop used by all pop-up windows -->
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+
+  <!-- Modal window: add/edit a stock item -->
+  <section class="window-modal" id="itemModal" aria-hidden="true">
+    <div class="modal-header">
+      <div>
+        <div class="modal-kicker">Stock Item</div>
+        <h3 id="itemModalTitle">Add New Stock Item</h3>
+      </div>
+      <button class="icon-btn close-modal" type="button" data-close-modal="itemModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="itemForm">
+        <input type="hidden" id="itemId" name="itemId" />
+        <div class="form-grid">
+          <div class="field">
+            <label for="itemName">Item Name</label>
+            <input class="input" id="itemName" name="name" placeholder="Example: Sugar" minlength="2" maxlength="60" required />
+          </div>
+          <div class="field">
+            <label for="itemCategory">Category</label>
+            <input class="input" id="itemCategory" name="category" placeholder="Example: Raw Material" minlength="2" maxlength="40" required />
+          </div>
+          <div class="field">
+            <label for="itemKind">Item Type</label>
+            <select class="select" id="itemKind" name="itemKind">
+              <option value="ingredient">Raw Material / Ingredient</option>
+              <option value="finished">Finished Product</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="itemUnit">Unit</label>
+            <select class="select" id="itemUnit" name="unit">
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="l">l</option>
+              <option value="ml">ml</option>
+              <option value="packs">packs</option>
+              <option value="bottles">bottles</option>
+              <option value="cans">cans</option>
+              <option value="pieces">pieces</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="trackingMode">Tracking Mode</label>
+            <select class="select" id="trackingMode" name="trackingMode">
+              <option value="bulk">Bulk Ingredient</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="counted">Exact Counted</option>
+            </select>
+          </div>
+          <div class="field field-full supplier-link-note">
+            <label>Supplier Handling</label>
+            <div class="form-info-box">
+              Supplier is handled from <strong>Purchases</strong> and <strong>Supplier Management</strong>, not as one fixed value in the stock item master. Record each purchase with the real supplier; the Supplier Links page will show every supplier that provided this item.
+            </div>
+            <datalist id="supplierList"></datalist>
+          </div>
+          <div class="field">
+            <label for="qtyOnHand">Qty on Hand</label>
+            <input class="input" type="number" min="0" step="0.01" id="qtyOnHand" name="qtyOnHand" required />
+          </div>
+          <div class="field">
+            <label for="reorderLevel">Reorder Level</label>
+            <input class="input" type="number" min="0" step="0.01" id="reorderLevel" name="reorderLevel" required />
+          </div>
+          <div class="field">
+            <label for="unitCost">Unit Cost (LKR)</label>
+            <input class="input" type="number" min="0" step="0.01" id="unitCost" name="unitCost" value="0" required />
+          </div>
+          <div class="field">
+            <label for="itemStatus">Status</label>
+            <select class="select" id="itemStatus" name="status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div class="field field-full">
+          <label for="itemNotes">Notes</label>
+          <textarea class="textarea" id="itemNotes" name="notes" placeholder="Optional note" maxlength="250"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" id="cancelItemBtn">Cancel</button>
+          <button class="primary-btn" type="submit" id="itemSubmitBtn">Save Item</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modal window: record or edit a purchase -->
+  <section class="window-modal" id="purchaseModal" aria-hidden="true">
+    <div class="modal-header">
+      <div>
+        <div class="modal-kicker">Purchase</div>
+        <h3 id="purchaseModalTitle">Record Purchase</h3>
+      </div>
+      <button class="icon-btn close-modal" type="button" data-close-modal="purchaseModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="purchaseForm">
+        <input type="hidden" id="purchaseId" name="purchaseId" />
+        <div class="purchase-grid">
+          <div class="field">
+            <label for="purchaseItemId">Stock Item</label>
+            <select class="select" id="purchaseItemId" name="itemId" required></select>
+          </div>
+          <div class="field">
+            <label for="purchaseSupplier">Supplier</label>
+            <input class="input" id="purchaseSupplier" name="supplier" list="supplierList" placeholder="Supplier name" maxlength="70" required />
+          </div>
+          <div class="field">
+            <label for="purchaseQuantity">Quantity</label>
+            <input class="input" type="number" min="0.01" step="0.01" id="purchaseQuantity" name="quantity" required />
+          </div>
+          <div class="field">
+            <label for="purchaseUnitPrice">Unit Price (LKR)</label>
+            <input class="input" type="number" min="0" step="0.01" id="purchaseUnitPrice" name="unitPrice" required />
+          </div>
+          <div class="field">
+            <label for="purchaseDate">Date</label>
+            <input class="input" type="date" id="purchaseDate" name="date" required />
+          </div>
+          <div class="field">
+            <label for="paymentStatus">Payment Status</label>
+            <select class="select" id="paymentStatus" name="paymentStatus">
+              <option value="Paid">Paid</option>
+              <option value="Partially Paid">Partially Paid</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="purchasePaidAmount">Paid Amount (LKR)</label>
+            <input class="input" type="number" min="0" step="0.01" id="purchasePaidAmount" name="paidAmount" placeholder="Auto for paid/pending" />
+          </div>
+          <div class="field">
+            <label for="purchaseDueDate">Due Date</label>
+            <input class="input" type="date" id="purchaseDueDate" name="dueDate" />
+          </div>
+          <div class="field">
+            <label for="purchaseInvoiceNo">Invoice / Bill No.</label>
+            <input class="input" id="purchaseInvoiceNo" name="invoiceNo" placeholder="Optional bill number" maxlength="60" />
+          </div>
+          <div class="field">
+            <label for="purchasedBy">Purchased By</label>
+            <input class="input" id="purchasedBy" name="purchasedBy" placeholder="Employee name" maxlength="60" />
+          </div>
+          <div class="field">
+            <label for="purchaseNote">Note</label>
+            <input class="input" id="purchaseNote" name="note" placeholder="Optional note" maxlength="250" />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" id="cancelPurchaseBtn">Cancel</button>
+          <button class="secondary-btn" type="submit" id="purchaseSubmitBtn">Save Purchase</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modal window: record manual stock movement -->
+  <section class="window-modal" id="transactionModal" aria-hidden="true">
+    <div class="modal-header">
+      <div>
+        <div class="modal-kicker">Transaction</div>
+        <h3>Record Stock Transaction</h3>
+      </div>
+      <button class="icon-btn close-modal" type="button" data-close-modal="transactionModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="transactionForm">
+        <div class="purchase-grid">
+          <div class="field">
+            <label for="txnItemId">Stock Item</label>
+            <select class="select" id="txnItemId" name="itemId" required></select>
+          </div>
+          <div class="field">
+            <label for="txnType">Transaction Type</label>
+            <select class="select" id="txnType" name="type">
+              <option value="IN">Stock In</option>
+              <option value="OUT">Stock Out</option>
+              <option value="ADJUSTMENT">Adjustment</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="txnQuantity">Quantity</label>
+            <input class="input" type="number" min="0.01" step="0.01" id="txnQuantity" name="quantity" required />
+          </div>
+          <div class="field">
+            <label for="adjustmentDirection">Adjustment Direction</label>
+            <select class="select" id="adjustmentDirection" name="adjustmentDirection">
+              <option value="1">Increase (+)</option>
+              <option value="-1">Decrease (-)</option>
+            </select>
+          </div>
+          <div class="field field-full">
+            <label for="txnReason">Reason</label>
+            <textarea class="textarea" id="txnReason" name="reason" placeholder="Reason for this stock movement" maxlength="250"></textarea>
+          </div>
+          <div class="field">
+            <label for="recordedBy">Recorded By</label>
+            <input class="input" id="recordedBy" name="recordedBy" placeholder="Employee name" maxlength="60" />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" id="cancelTransactionBtn">Cancel</button>
+          <button class="dark-btn" type="submit">Save Transaction</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modal window: choose which dataset to export as CSV -->
+  <section class="window-modal export-modal" id="exportModal" aria-hidden="true">
+    <div class="modal-header slim">
+      <div>
+        <div class="modal-kicker">Export</div>
+        <h3>Export Stock Data</h3>
+      </div>
+      <button class="icon-btn close-modal" type="button" data-close-modal="exportModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="export-options">
+        <button class="export-card" type="button" data-export="items">
+          <i class="fa-solid fa-file-csv"></i>
+          <strong>Stock Items CSV</strong>
+          <span>Current stock list with quantities, costs, and reorder levels.</span>
+        </button>
+        <button class="export-card" type="button" data-export="purchases">
+          <i class="fa-solid fa-file-csv"></i>
+          <strong>Purchase History CSV</strong>
+          <span>Supplier purchases with dates, payment status, and totals.</span>
+        </button>
+        <button class="export-card" type="button" data-export="supplierLinks">
+          <i class="fa-solid fa-file-csv"></i>
+          <strong>Supplier Links CSV</strong>
+          <span>Every stock item with linked suppliers, latest purchase date, and last price.</span>
+        </button>
+        <button class="export-card" type="button" data-export="transactions">
+          <i class="fa-solid fa-file-csv"></i>
+          <strong>Transactions CSV</strong>
+          <span>Stock in, stock out, and adjustment movement history.</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Modal window: read a saved note without leaving the page -->
+  <section class="window-modal note-modal" id="noteModal" aria-hidden="true">
+    <div class="modal-header slim">
+      <div>
+        <div class="modal-kicker">Note</div>
+        <h3 id="noteModalTitle">Record Note</h3>
+      </div>
+      <button class="icon-btn close-modal" type="button" data-close-modal="noteModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="noteModalContent" class="note-modal-content"></div>
+      <div class="modal-actions">
+        <button class="ghost-btn" type="button" data-close-modal="noteModal">Close</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+  <!-- Main JavaScript logic for stock management -->
+  <script type="module" src="stock.js"></script>
+</body>
+</html>

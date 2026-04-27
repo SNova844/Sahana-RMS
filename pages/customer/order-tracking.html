@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Order Tracking | Sahana Urban</title>
+
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+
+<header class="main-header">
+  <nav class="navbar">
+    <a href="../../index.html" class="brand">
+      <img src="../../images/logo.png" alt="Logo">
+    </a>
+
+    <div class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="cart.html">Cart</a>
+    </div>
+
+    <a href="menu.html" class="book-btn">Order Again</a>
+  </nav>
+</header>
+
+<section class="tracking-page">
+  <div class="tracking-card">
+    <p class="tracking-label">ORDER STATUS</p>
+    <h1>Track Your Order</h1>
+
+    <div id="trackingDetails">
+      <!-- Order details load here -->
+    </div>
+
+    <div class="tracking-steps">
+      <div class="track-step" id="stepPending">Pending</div>
+      <div class="track-step" id="stepConfirmed">Confirmed</div>
+      <div class="track-step" id="stepInProgress">In Progress</div>
+      <div class="track-step" id="stepCompleted">Completed</div>
+    </div>
+
+    <div id="trackingActions" class="tracking-actions">
+      <button id="printReceiptBtn" class="print-receipt-btn">
+          Print Receipt
+      </button>
+
+      <button id="cancelOrderBtn" class="cancel-order-btn">
+          Cancel Order
+      </button>
+    </div>
+
+
+  </div>
+
+  
+</section>
+
+
+
+<script type="module" src="order-tracking.js"></script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+/* Delivery Management Specific Styles */
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.table-header h2 {
+  font-size: 24px;
+  color: #0e0d3d;
+  font-weight: 600;
+}
+
+.add-new-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #a71d31;
+  color: #ffffff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s ease;
+  text-decoration: none;
+}
+
+.add-new-btn:hover {
+  background: #8b1625;
+  text-decoration: none;
+}
+
+/* Delivery Table */
+.delivery-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.delivery-table thead {
+  background: #f5f5f5;
+  border-bottom: 2px solid #E0E0E0;
+}
+
+.delivery-table th {
+  text-align: left;
+  padding: 16px;
+  color: #666;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.delivery-table tbody tr {
+  border-bottom: 1px solid #E0E0E0;
+  height: 65px;
+  transition: 0.2s ease;
+}
+
+.delivery-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.delivery-table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.delivery-table td {
+  padding: 16px;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Status Badges */
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status.assigned {
+  background: #cfe2ff;
+  color: #084298;
+  border: 1px solid #b6d4fe;
+}
+
+.status.in-transit {
+  background: #d1ecf1;
+  color: #0a3622;
+  border: 1px solid #bee5eb;
+}
+
+.status.delivered {
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.status.cancelled {
+  background: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+/* Action Buttons */
+.action-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: 0.2s ease;
+  margin: 0 2px;
+  text-decoration: none;
+}
+
+.action-btn:hover {
+  background: #f0f0f0;
+  color: #0e0d3d;
+}
+
+.action-btn.delete-btn:hover {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notification-success {
+  border-left: 4px solid #4caf50;
+  color: #2e7d32;
+}
+
+.notification-success i {
+  color: #4caf50;
+}
+
+.notification-error {
+  border-left: 4px solid #c62828;
+  color: #c62828;
+}
+
+.notification-error i {
+  color: #c62828;
+}
+
+.notification-info {
+  border-left: 4px solid #2196f3;
+  color: #1976d2;
+}
+
+.notification-info i {
+  color: #2196f3;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .delivery-table th,
+  .delivery-table td {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+
+  .add-new-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .delivery-table {
+    font-size: 12px;
+  }
+
+  .delivery-table th,
+  .delivery-table td {
+    padding: 10px 6px;
+  }
+
+  .status {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .action-btn {
+    padding: 4px 6px;
+    font-size: 14px;
+  }
+
+  .notification {
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}

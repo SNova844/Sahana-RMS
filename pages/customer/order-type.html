@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Order Type | Sahana Urban</title>
+
+  <link rel="stylesheet" href="customer.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <section class="order-type-page">
+    <div class="order-type-overlay"></div>
+
+    <div class="order-type-container">
+      <p class="order-label">START YOUR ORDER</p>
+      <h1>Choose Your Order Type</h1>
+      <span>
+        Select how you would like to receive your food and continue to the menu.
+      </span>
+
+      <div class="order-type-grid">
+
+        <div class="order-option" onclick="selectOrderType('Dine-in')">
+          <img src="../../images/restaurant.webp" alt="Dine-in">
+          <div class="order-option-content">
+            <h3>Dine-in</h3>
+            <p>Enjoy your meal at the restaurant.</p>
+          </div>
+        </div>
+
+        <div class="order-option" onclick="selectOrderType('Takeaway')">
+          <img src="../../images/food1.jpg" alt="Takeaway">
+          <div class="order-option-content">
+            <h3>Takeaway</h3>
+            <p>Pick up your food quickly and easily.</p>
+          </div>
+        </div>
+
+        <div class="order-option" onclick="selectOrderType('Delivery')">
+          <img src="../../images/food2.jpg" alt="Delivery">
+          <div class="order-option-content">
+            <h3>Delivery</h3>
+            <p>Get your meal delivered to your location.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="../../index.html" class="back-home-btn">Back to Home</a>
+    </div>
+  </section>
+
+  <script type="module" src="customer.js"></script>.js"></script>
+</body>
+</html>

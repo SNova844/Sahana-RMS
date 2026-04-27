@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management - Sahana RMS</title>
+  <link rel="stylesheet" href="user.css" />
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <div class="logo-box">S</div>
+          <div>
+            <h2>Sahana Urban</h2>
+            <p>Admin Panel</p>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="user.html" class="menu-item active">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="../deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="../supplier-mng/supplier.html" class="menu-item">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supply Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/employee.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+        <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <!-- Page Header with Tabs -->
+      <section class="page-header-section">
+        <div class="page-title">
+          <h1><i class="fa-solid fa-users"></i> User Management</h1>
+          <p id="userCount">Loading users...</p>
+        </div>
+
+        <div class="tabs-navigation">
+          <button class="tab-item active" data-tab="accounts">
+            <i class="fa-solid fa-users"></i>
+            User Accounts
+          </button>
+          <button class="tab-item" data-tab="roles">
+            <i class="fa-solid fa-shield"></i>
+            Roles & Permissions
+          </button>
+          <button class="tab-item" data-tab="activity">
+            <i class="fa-solid fa-clock"></i>
+            Activity Log
+          </button>
+        </div>
+      </section>
+
+      <!-- Search + Filter + Actions Bar -->
+      <section class="actions-bar">
+        <div class="search-filter-section">
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search by name, email, role..."
+              id="searchInput"
+            />
+          </div>
+
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Users</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="inactive">Inactive</button>
+            <button class="filter-btn" data-filter="admin">Admins</button>
+            <button class="filter-btn" data-filter="manager">Managers</button>
+            <button class="filter-btn" data-filter="staff">Staff</button>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-primary" id="addNewUserBtn">
+            <i class="fa-solid fa-plus"></i>
+            Add New User
+          </button>
+          <button class="btn btn-danger" id="deleteUserBtn" disabled>
+            <i class="fa-solid fa-trash"></i>
+            Delete Selected
+          </button>
+        </div>
+      </section>
+
+      <!-- Content Area -->
+      <section class="content-area">
+        <!-- Tab Content: User Accounts -->
+        <div class="tab-content active" id="accounts-tab">
+          <div class="section-label">User Accounts</div>
+
+          <div class="table-container">
+            <table class="users-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;"><input id="selectAll" type="checkbox" /></th>
+                  <th style="width: 220px;">User</th>
+                  <th style="width: 250px;">Email</th>
+                  <th style="width: 100px;">Role</th>
+                  <th style="width: 100px;">Status</th>
+                  <th style="width: 120px;">Last Active</th>
+                  <th style="width: 120px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTbody">
+                <!-- Users will be loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab Content: Roles & Permissions -->
+        <div class="tab-content" id="roles-tab">
+          <div class="section-label">Roles & Permissions</div>
+          <div class="placeholder-content">
+            <i class="fa-solid fa-shield"></i>
+            <p>Roles & Permissions management coming soon</p>
+          </div>
+        </div>
+
+        <!-- Tab Content: Activity Log -->
+        <div class="tab-content" id="activity-tab">
+          <div class="section-label">Activity Log</div>
+          <div class="placeholder-content">
+            <i class="fa-solid fa-clock"></i>
+            <p>Activity Log coming soon</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="user.js"></script>
+</body>
+</html>

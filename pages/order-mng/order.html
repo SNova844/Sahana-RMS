@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Management - Sahana RMS</title>
+  <link rel="stylesheet" href="order.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo-section">
+      <div class="logo-box">S</div>
+      <div>
+        <h2>Sahana RMS</h2>
+        <p>Restaurant Management</p>
+      </div>
+    </div>
+
+    <input type="text" class="search-input" placeholder="Search here" />
+
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="../../dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+      <li class="nav-item"><a href="../user-mng/user.html"><i class="fa-solid fa-users"></i> User management</a></li>
+      <li class="nav-item active"><a href="#"><i class="fa-solid fa-cart-shopping"></i> Order management</a></li>
+      <li class="nav-item"><a href="../deliver-mng/delivery.html"><i class="fa-solid fa-truck"></i> Delivery management</a></li>
+      <li class="nav-item"><a href="../stock-mng/stock.html"><i class="fa-solid fa-boxes-stacked"></i> Stock management</a></li>
+      <li class="nav-item"><a href="../employee-mng/list.html"><i class="fa-solid fa-user-tie"></i> Employee management</a></li>
+      <li class="nav-item"><a href="../supplier-mng/supplier.html"><i class="fa-solid fa-building"></i> Supplier management</a></li>
+      <li class="nav-item"><a href="#"><i class="fa-solid fa-gear"></i> Setting</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="top-bar">
+      <div></div>
+
+      <div class="tabs">
+        <div class="tab active" data-filter="All">All</div>
+        <div class="tab" data-filter="Pending">Pending</div>
+        <div class="tab" data-filter="Confirmed">Confirmed</div>
+        <div class="tab" data-filter="In Progress">In Progress</div>
+        <div class="tab" data-filter="Customer">Customer</div>
+        <div class="tab" data-filter="Cancelled">Cancelled</div>
+      </div>
+
+      <div class="right-controls">
+        <button class="add-order-btn">+ Add Order</button>
+        <input type="text" class="search-small" placeholder="Search..." />
+        <div class="back-btn">
+          <span>←</span>
+          <span>Back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Order ID</th>
+            <th>Table No</th>
+            <th>Waiter</th>
+            <th>Customer</th>
+            <th>Order Type</th>
+            <th>Item Type</th>
+            <th>Date</th>
+            <th>Price</th>
+            <th>Order Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="orderTableBody">
+          <tr>
+            <td colspan="11" style="text-align:center; padding: 24px;">Loading orders...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="module" src="order.js"></script>
+</body>
+</html>

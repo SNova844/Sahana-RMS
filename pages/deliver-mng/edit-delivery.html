@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Delivery - Sahana RMS</title>
+  <link rel="stylesheet" href="delivery.css" />
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="crud.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <div class="logo-box">S</div>
+          <div>
+            <h2>Sahana Urban</h2>
+            <p>Admin Panel</p>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="../user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="../order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="delivery.html" class="menu-item active">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="../supplier-mng/supplier.html" class="menu-item">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supply Management</span>
+        </a>
+
+        <a href="../stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="../employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Header with Logo, Breadcrumb, and Back Button -->
+     <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <!-- Content Area with Form -->
+      <section class="content-area">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Edit Delivery</h2>
+            <p>Update the delivery details below</p>
+          </div>
+
+          <form id="editDeliveryForm" class="crud-form">
+            <div class="form-section">
+              <h3>Delivery Information</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="orderID">Order ID <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="orderID"
+                    name="orderID"
+                    placeholder="e.g., #ORD009"
+                    disabled
+                  />
+                  <small class="help-text">Order ID cannot be changed</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="customerName">Customer Name <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="customerName"
+                    name="customerName"
+                    placeholder="Enter customer name"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="riderName">Rider Name <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="riderName"
+                    name="riderName"
+                    placeholder="Enter rider name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number <span class="required">*</span></label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="e.g., +94 701 234567"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group full-width">
+                  <label for="address">Delivery Address <span class="required">*</span></label>
+                  <textarea
+                    id="address"
+                    name="address"
+                    placeholder="Enter complete delivery address"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="status">Status <span class="required">*</span></label>
+                  <select id="status" name="status" required>
+                    <option value="">Select Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Assigned">Assigned</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="date">Delivery Date <span class="required">*</span></label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" onclick="window.history.back()">
+                <i class="fa-solid fa-times"></i>
+                Cancel
+              </button>
+              <button type="submit" class="btn-primary">
+                <i class="fa-solid fa-save"></i>
+                Update Delivery
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="crud.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahana RMS Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+       <div class="logo-section">
+          <img src="../../images/logo.png" class="main-logo" />
+          <p class="admin-label">Admin Panel</p>
+      </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#" class="menu-item active">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="pages/user-mng/user.html" class="menu-item">
+          <i class="fa-solid fa-users"></i>
+          <span>User Management</span>
+        </a>
+
+        <a href="pages/order-mng/order.html" class="menu-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Order Management</span>
+        </a>
+
+        <a href="pages/deliver-mng/delivery.html" class="menu-item">
+          <i class="fa-solid fa-truck"></i>
+          <span>Delivery Management</span>
+        </a>
+
+        <a href="pages/supplier-mng/supplier.html" class="menu-item">
+          <i class="fa-solid fa-handshake"></i>
+          <span>Supplier Management</span>
+        </a>
+
+        <a href="pages/stock-mng/stock.html" class="menu-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Stock Management</span>
+        </a>
+
+        <a href="pages/employee-mng/list.html" class="menu-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employee Management</span>
+        </a>
+
+        <a href="pages/food-mng/food.html" class="menu-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Food Management</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Admin Dashboard</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="login.html" class="top-btn">Login</a>
+          <a href="signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <!-- Dashboard content -->
+      <section class="content-area">
+        <div class="welcome-card">
+          <div>
+            <h2>Welcome to Sahana RMS</h2>
+            <p>Manage restaurant operations from one place.</p>
+          </div>
+          <button class="action-btn">View Reports</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div>
+              <h3>Users</h3>
+              <p>152</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            <div>
+              <h3>Orders</h3>
+              <p>89</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="fa-solid fa-box"></i>
+            </div>
+            <div>
+              <h3>Stock Items</h3>
+              <p>64</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <i class="fa-solid fa-truck"></i>
+            </div>
+            <div>
+              <h3>Deliveries</h3>
+              <p>27</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="panel-card">
+            <div class="card-header">
+              <h3>Recent Orders</h3>
+              <button>See All</button>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#ORD001</td>
+                  <td>Naduni</td>
+                  <td><span class="status preparing">Preparing</span></td>
+                </tr>
+                <tr>
+                  <td>#ORD002</td>
+                  <td>Kavindu</td>
+                  <td><span class="status ready">Ready</span></td>
+                </tr>
+                <tr>
+                  <td>#ORD003</td>
+                  <td>Ashen</td>
+                  <td><span class="status delivery">Delivery</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel-card">
+            <div class="card-header">
+              <h3>Quick Actions</h3>
+            </div>
+
+            <div class="quick-actions">
+              <a href="pages/supplier-mng/supplier.html" class="quick-btn">Add Supplier</a>
+              <a href="pages/stock-mng/stock.html" class="quick-btn">Manage Stock</a>
+              <a href="pages/employee-mng/list.html" class="quick-btn">Add Employee</a>
+              <a href="pages/order-mng/order.html" class="quick-btn">View Orders</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

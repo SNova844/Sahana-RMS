@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View User - Sahana RMS</title>
+  <link rel="stylesheet" href="user.css" />
+  <link rel="stylesheet" href="../../css/dashboard.css" />
+  <link rel="stylesheet" href="../deliver-mng/crud.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <div class="logo-box">S</div>
+          <div>
+            <h2>Sahana Urban</h2>
+            <p>Admin Panel</p>
+          </div>
+        </div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+      </div>
+      <nav class="sidebar-menu">
+        <a href="../../dashboard.html" class="menu-item"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+        <a href="user.html" class="menu-item active"><i class="fa-solid fa-users"></i><span>User Management</span></a>
+        <a href="../order-mng/order.html" class="menu-item"><i class="fa-solid fa-cart-shopping"></i><span>Order Management</span></a>
+        <a href="../deliver-mng/delivery.html" class="menu-item"><i class="fa-solid fa-truck"></i><span>Delivery Management</span></a>
+        <a href="../supplier-mng/supplier.html" class="menu-item"><i class="fa-solid fa-handshake"></i><span>Supply Management</span></a>
+        <a href="../stock-mng/stock.html" class="menu-item"><i class="fa-solid fa-boxes-stacked"></i><span>Stock Management</span></a>
+        <a href="../employee-mng/employee.html" class="menu-item"><i class="fa-solid fa-id-badge"></i><span>Employee Management</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <!-- <h1>Supplier Management</h1> -->
+        </div>
+
+        <!-- <div class="topbar-center">
+          <a href="../../index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div> -->
+
+        <div class="topbar-right">
+          <a href="../../login.html" class="top-btn">Login</a>
+          <a href="../../signup.html" class="top-btn top-btn-primary">Sign Up</a>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <div class="view-wrapper">
+          <!-- View Container -->
+          <div class="view-container">
+            <!-- Header Section -->
+            <div class="form-header">
+              <div class="header-icon"><i class="fa-solid fa-eye"></i></div>
+              <div class="header-text">
+                <h1>User Details</h1>
+                <p>View complete user information</p>
+              </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="details-view">
+              <!-- Section 1: User Identity -->
+              <div class="detail-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-user"></i> User Identity</h3>
+                </div>
+                <div class="details-grid">
+                  <div class="detail-item">
+                    <label>User ID</label>
+                    <p id="viewUserId">-</p>
+                  </div>
+                  <div class="detail-item">
+                    <label>Full Name</label>
+                    <p id="viewFullName">-</p>
+                  </div>
+                  <div class="detail-item">
+                    <label>Email</label>
+                    <p id="viewEmail">-</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Account Details -->
+              <div class="detail-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-shield"></i> Account Details</h3>
+                </div>
+                <div class="details-grid">
+                  <div class="detail-item">
+                    <label>Role</label>
+                    <p><span id="viewRole" class="role-badge">-</span></p>
+                  </div>
+                  <div class="detail-item">
+                    <label>Status</label>
+                    <p><span id="viewStatus" class="status-badge">-</span></p>
+                  </div>
+                  <div class="detail-item">
+                    <label>Last Active</label>
+                    <p id="viewLastActive">-</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 3: Account Timestamps -->
+              <div class="detail-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-clock"></i> Account History</h3>
+                </div>
+                <div class="details-grid">
+                  <div class="detail-item">
+                    <label>Created Date</label>
+                    <p id="viewCreatedDate">-</p>
+                  </div>
+                  <div class="detail-item">
+                    <label>Last Updated</label>
+                    <p id="viewUpdatedDate">-</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="view-actions">
+                <a href="user.html" class="btn-secondary">
+                  <i class="fa-solid fa-arrow-left"></i> Back to List
+                </a>
+                <a href="#" id="editBtn" class="btn-primary">
+                  <i class="fa-solid fa-pen"></i> Edit User
+                </a>
+                <a href="#" id="deleteBtn" class="btn-danger">
+                  <i class="fa-solid fa-trash"></i> Delete User
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="view-user.js"></script>
+</body>
+</html>
